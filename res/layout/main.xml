@@ -5,9 +5,11 @@
               android:layout_height="fill_parent"
         >
     <TextView
+            android:maxLines = "50"
+            android:scrollbars = "vertical"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="400dp"
             android:text="Hello World, MyActivity"
-            />
+            android:id="@+id/tempText"/>
 </LinearLayout>
 

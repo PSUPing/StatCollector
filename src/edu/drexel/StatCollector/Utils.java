@@ -7,6 +7,8 @@ import org.codehaus.jackson.node.ObjectNode;
 import java.util.UUID;
 
 public class Utils {
+    public static final String TAG = "StatCollector.";
+
     public static void toggleCheck(JsonNode item) {
         ObjectNode itemObject = (ObjectNode)item;
         JsonNode checkNode = item.get("check");

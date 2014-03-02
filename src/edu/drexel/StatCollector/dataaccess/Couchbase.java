@@ -2,17 +2,18 @@ package edu.drexel.StatCollector.dataaccess;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.Debug;
 import android.preference.PreferenceManager;
-import android.provider.Settings;
 import android.util.Log;
 
 import com.couchbase.cblite.*;
 import com.couchbase.cblite.ektorp.CBLiteHttpClient;
 import com.couchbase.cblite.router.CBLURLStreamHandlerFactory;
 
-import edu.drexel.StatCollector.StatsToCollect;
+import edu.drexel.StatCollector.domain.StatsToCollect;
 
 import org.codehaus.jackson.JsonNode;
+import org.codehaus.jackson.node.ArrayNode;
 import org.codehaus.jackson.node.JsonNodeFactory;
 import org.codehaus.jackson.node.ObjectNode;
 
@@ -23,8 +24,8 @@ import org.ektorp.impl.StdCouchDbInstance;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.util.Iterator;
 import java.util.Map;
-import java.util.UUID;
 
 public class Couchbase {
     public static final String TAG = "StatCollector";
@@ -32,7 +33,7 @@ public class Couchbase {
     public static final String dDocName = "get";
     public static final String dDocId = "_design/" + dDocName;
     public static final String regQuery = "get_regs";
-    public static final String DATABASE_URL = "http://10.0.2.2:4984";  // 10.0.2.2 == Android Simulator equivalent of 127.0.0.1
+    public static final String DATABASE_URL = "http://192.168.100.11:4984";  // 10.0.2.2 == Android Simulator equivalent of 127.0.0.1
     public static String filesDir;
 
     public static Context baseContext;
@@ -87,14 +88,127 @@ public class Couchbase {
     }
 
     public static JsonNode makeCBStatObj (StatsToCollect statObj) {
-        ObjectNode stat = JsonNodeFactory.instance.objectNode();
+        ObjectNode statNode = JsonNodeFactory.instance.objectNode();
 
-        stat.put("_id", UUID.randomUUID().toString());
-        stat.put("thread_count", statObj.getThreadCount());
-        stat.put("vm_memory", statObj.getVMMemory());
-        stat.put("date_time", statObj.getDateTime());
+        statNode.put("_id", statObj.getID());
+        statNode.put("calc_wait", statObj.getCalcWaitTime());
+        statNode.put("date_time", statObj.getDateTime());
 
-        return stat;
+        if (statObj.battery > 0)
+            statNode.put("battery_level", statObj.battery);
+
+        // Memory Node
+        if (statObj.logCPU) {
+            ObjectNode cpuNode = statNode.putObject("cpu");
+
+            if (statObj.cpuNode.getThreadAllocCount() > 0)
+                cpuNode.put("thread_alloc_count", statObj.cpuNode.getThreadAllocCount());
+
+            if (statObj.cpuNode.getThreadAllocSize() > 0)
+                cpuNode.put("thread_alloc_size", statObj.cpuNode.getThreadAllocSize());
+
+            if (statObj.cpuNode.getProcs() > 0)
+                cpuNode.put("proc_count", statObj.cpuNode.getProcs());
+
+            if (statObj.cpuNode.getProcsRunning() > 0)
+                cpuNode.put("proc_running", statObj.cpuNode.getProcsRunning());
+        }
+
+        // Memory Node
+        if (statObj.logMem) {
+            ObjectNode memNode = statNode.putObject("memory");
+
+            // System Memory
+            if (statObj.memNode.getMemoryTotal() > 0)
+                memNode.put("mem_total", statObj.memNode.getMemoryTotal());
+
+            if (statObj.memNode.getMemoryFree() > 0)
+                memNode.put("mem_free", statObj.memNode.getMemoryFree());
+
+            // Dalvik
+            if (statObj.memNode.getDalvikPrivateDirty() > 0L)
+                memNode.put("dalvik_private_dirty", statObj.memNode.getDalvikPrivateDirty());
+
+            if (statObj.memNode.getDalvikPrivateShared() > 0L)
+                memNode.put("dalvik_shared_dirty", statObj.memNode.getDalvikPrivateShared());
+
+            if (statObj.memNode.getDalvikPSS() > 0L)
+                memNode.put("dalvik_pss", statObj.memNode.getDalvikPSS());
+
+            // Native
+            if (statObj.memNode.getNativePrivateDirty() > 0L)
+                memNode.put("native_private_dirty", statObj.memNode.getNativePrivateDirty());
+
+            if (statObj.memNode.getNativePrivateShared() > 0L)
+                memNode.put("native_shared_dirty", statObj.memNode.getNativePrivateShared());
+
+            if (statObj.memNode.getNativePSS() > 0L)
+                memNode.put("native_pss", statObj.memNode.getNativePSS());
+
+            if (statObj.memNode.getNativeAllocHeap() > 0L)
+                memNode.put("native_allocated_heap", statObj.memNode.getNativeAllocHeap());
+
+            if (statObj.memNode.getNativeFreeHeap() > 0L)
+                memNode.put("native_free_heap", statObj.memNode.getNativeFreeHeap());
+
+            if (statObj.memNode.getNativeHeap() > 0L)
+                memNode.put("native_heap", statObj.memNode.getNativeHeap());
+
+            // Other
+            if (statObj.memNode.getOtherPrivateDirty() > 0L)
+                memNode.put("other_private_dirty", statObj.memNode.getOtherPrivateDirty());
+
+            if (statObj.memNode.getOtherPrivateShared() > 0L)
+                memNode.put("other_shared_dirty", statObj.memNode.getOtherPrivateShared());
+
+            if (statObj.memNode.getOtherPSS() > 0L)
+                memNode.put("other_pss", statObj.memNode.getOtherPSS());
+        }
+
+        // CPU Node
+        if (statObj.logNetwork) {
+/*
+            ObjectNode appNode = statNode.putObject("apps");
+            Iterator networkIt = statObj.networkNode.appTraffic.entrySet().iterator();
+            Iterator appIt = statObj.apps.entrySet().iterator();
+
+            while (appIt.hasNext()) {
+                Map.Entry pairs = (Map.Entry)appIt.next();
+                appNode.put(pairs.getKey().toString(), pairs.getValue().toString());
+                appIt.remove();
+            }
+*/
+            ObjectNode networkNode = statNode.putObject("network");
+
+            if (statObj.networkNode.currTx > 0)
+                networkNode.put("total_tx", statObj.networkNode.currTx);
+
+            if (statObj.networkNode.currRx > 0)
+                networkNode.put("total_rx", statObj.networkNode.currRx);
+/*
+            while (networkIt.hasNext()) {
+                Map.Entry pairs = (Map.Entry)networkIt.next();
+                networkNode.put(pairs.getKey().toString(), pairs.getValue().toString());
+                networkIt.remove();
+            }
+*/
+        }
+
+        // Dalvik Node
+        if (statObj.logDalvik) {
+            ObjectNode dalvikNode = statNode.putObject("dalvik");
+
+            if (statObj.dalvikNode.getClassesLoaded() > 0)
+                dalvikNode.put("classes_loaded", statObj.dalvikNode.getClassesLoaded());
+
+            if (statObj.dalvikNode.getGlobalClassInit() > 0)
+                dalvikNode.put("global_class_init", statObj.dalvikNode.getGlobalClassInit());
+
+            if (statObj.dalvikNode.getTotalMthdInvoc() > 0)
+                dalvikNode.put("total_methods_invoc", statObj.dalvikNode.getTotalMthdInvoc());
+        }
+
+        return statNode;
     }
 
     public static void createStat (JsonNode node) {

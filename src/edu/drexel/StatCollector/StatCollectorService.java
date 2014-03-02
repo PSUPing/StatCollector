@@ -2,43 +2,126 @@ package edu.drexel.StatCollector;
 
 import android.app.Service;
 import android.content.Intent;
-import android.os.Debug;
-import android.os.Handler;
-import android.os.IBinder;
+import android.content.IntentFilter;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
+import android.os.*;
 import android.util.Log;
 
 import com.couchbase.cblite.router.CBLURLStreamHandlerFactory;
 
 import edu.drexel.StatCollector.dataaccess.Couchbase;
-import edu.drexel.StatCollector.dataaccess.RegressionInfo;
+import edu.drexel.StatCollector.domain.StatsToCollect;
+import edu.drexel.StatCollector.sensors.SystemReads;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Set;
+import java.util.Date;
+
+//logMalware(stat);
 
 public class StatCollectorService extends Service {
-    private static final String TAG = StatCollectorService.class.getSimpleName();
+    private static final String TAG = Utils.TAG + StatCollectorService.class.getSimpleName();
     private static final DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
     private static final Handler handler = new Handler();
-    private static Integer currCount = 0;
-    private static Integer lastCount = 0;
-    private static Integer lastRunProcCount = 0;
-    private Intent actIntent;
+    private Date finishDate = new Date();
     private Debug.InstructionCount icount = new Debug.InstructionCount();
+    private IntentFilter iFilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
+    private Intent actIntent;
+    private boolean logCPU = false;
+    private boolean logDalvik = false;
+    private boolean logMem = false;
+    private boolean logNetwork = false;
+
     private Runnable captureStats = new Runnable() {
         @Override
         public void run() {
             try {
-                StatsToCollect stat = new StatsToCollect(getThreadCount().toString(), getVMMemory().toString(), Calendar.getInstance().getTime());
-//                StatsToCollect stat = new StatsToCollect(getProcessCount().toString(), getRunProcCount().toString(), Calendar.getInstance().getTime());
-//                Couchbase.createStat(Couchbase.makeCBStatObj(stat));
-                logMalware(stat);
+                Intent batteryStatus = registerReceiver(null, iFilter);
+                Integer level = batteryStatus.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
+                Integer status = batteryStatus.getIntExtra(BatteryManager.EXTRA_STATUS, -1);
+                StatsToCollect stat = new StatsToCollect();
+                Long captureWaitTime = 10000L;
 
-                handler.postDelayed(captureStats, 60000);
+                stat.logCPU = logCPU;
+                stat.logDalvik = logDalvik;
+                stat.logMem = logMem;
+                stat.logNetwork = logNetwork;
+
+                if (logCPU) {
+                    SystemReads sysRead = new SystemReads();
+
+                    stat.cpuNode.setThreadAllocCount(Debug.getThreadAllocCount());
+                    stat.cpuNode.setThreadAllocSize(Debug.getThreadAllocSize());
+                    stat.cpuNode.setProcs(sysRead.getProcessCount());
+                    stat.cpuNode.setProcsRunning(sysRead.getRunProcCount());
+                }
+
+                if (logDalvik) {
+                    stat.dalvikNode.setClassesLoaded(Debug.getLoadedClassCount());
+                    stat.dalvikNode.setGlobalClassInit(Debug.getGlobalClassInitCount());
+                    stat.dalvikNode.setTotalMthdInvoc(getGlobalMethodInvoc());
+                    // stat.dalvikNode.setTotalGlobalExec(getGlobalInstrCount()); Still not working
+                }
+
+                if (logMem) {
+                    Debug.MemoryInfo memInfo = new Debug.MemoryInfo();
+                    SystemReads sysRead = new SystemReads();
+
+                    stat.memNode.setMemoryTotal(sysRead.getVMMemoryTotal());
+                    stat.memNode.setMemoryFree(sysRead.getVMMemoryFree());
+
+                    stat.memNode.setDalvikPrivateDirty(memInfo.dalvikPrivateDirty);
+                    stat.memNode.setDalvikPrivateShared(memInfo.dalvikSharedDirty);
+                    stat.memNode.setDalvikPSS(memInfo.dalvikPss);
+
+                    stat.memNode.setNatviePrivateDirty(memInfo.nativePrivateDirty);
+                    stat.memNode.setNativePrivateShared(memInfo.nativeSharedDirty);
+                    stat.memNode.setNativePSS(memInfo.nativePss);
+
+                    stat.memNode.setNativeAllocHeap(Debug.getNativeHeapAllocatedSize());
+                    stat.memNode.setNativeFreeHeap(Debug.getNativeHeapFreeSize());
+                    stat.memNode.setNativeHeap(Debug.getNativeHeapSize());
+
+                    stat.memNode.setOtherPrivateDirty(memInfo.otherPrivateDirty);
+                    stat.memNode.setOtherPrivateShared(memInfo.otherSharedDirty);
+                    stat.memNode.setOtherPSS(memInfo.otherPss);
+                }
+
+                if (logNetwork) {
+                    stat.networkNode.getCurrTx();
+                    stat.networkNode.getCurrRx();
+
+                    for (ApplicationInfo appInfo : getPackageManager().getInstalledApplications(0)) {
+                        stat.apps.put(appInfo.uid, appInfo.packageName);
+                        stat.networkNode.getAppTx(appInfo.uid);
+                        stat.networkNode.getAppRx(appInfo.uid);
+                    }
+                }
+
+                if (status == BatteryManager.BATTERY_STATUS_CHARGING)
+                    captureWaitTime = 5000L;
+                else
+                    captureWaitTime = 10000L;
+
+                // Reset the instructions and start the counter over again
+                if (level > 30 || status == BatteryManager.BATTERY_STATUS_CHARGING) {
+                    Calendar cal = Calendar.getInstance();
+
+                    stat.setCalcWaitTime(captureWaitTime);
+                    Couchbase.createStat(Couchbase.makeCBStatObj(stat));
+
+                    if (cal.getTime().compareTo(finishDate) < 0) {
+                        icount.resetAndStart();
+                        handler.postDelayed(captureStats, captureWaitTime);
+                    }
+                }
+                else {
+                    stat.battery = level;
+                    stat.setCalcWaitTime(captureWaitTime);
+                    Couchbase.createStat(Couchbase.makeCBStatObj(stat));
+                }
             }
             catch (Exception ex) {
                 Log.e(TAG, ex.getMessage());
@@ -53,6 +136,25 @@ public class StatCollectorService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
+
+        try {
+            ApplicationInfo ai = getPackageManager().getApplicationInfo(getPackageName(), PackageManager.GET_META_DATA);
+            Bundle bundle = ai.metaData;
+
+            logCPU = bundle.getBoolean("logCPU");
+            logDalvik = bundle.getBoolean("logDalvik");
+            logMem = bundle.getBoolean("logMem");
+            logNetwork = bundle.getBoolean("logNetwork");
+        }
+        catch (PackageManager.NameNotFoundException nnfEx) {
+            Log.e(TAG, "Wrong name: " + nnfEx.getMessage());
+        }
+
+        // Figure out when this should be finished
+        Calendar cal = Calendar.getInstance();
+
+        cal.add(Calendar.HOUR_OF_DAY, 2);
+        finishDate = cal.getTime();
 
         icount.resetAndStart();
         captureStats.run();
@@ -70,15 +172,7 @@ public class StatCollectorService extends Service {
         super.onDestroy();
     }
 
-    public Integer getClassCount() {
-        return Debug.getGlobalClassInitCount();
-    }
-
-    public Double getHeapSize() {
-        return new Double(Debug.getNativeHeapAllocatedSize())/new Double((1048576));
-    }
-
-    private void logMalware(StatsToCollect stats) {
+/*    private void logMalware(StatsToCollect stats) {
         RegressionInfo regInfo = Couchbase.getRegression();
         Double yTestVal = regInfo.getM() * Double.parseDouble(stats.getThreadCount()) + regInfo.getB();
 
@@ -86,114 +180,31 @@ public class StatCollectorService extends Service {
             Log.e(TAG, "Malware found! Y: " + stats.getVMMemory() + " Y(Expected): " + yTestVal + " M: " + regInfo.getM() + " X: " + stats.getThreadCount() + " B: " + regInfo.getB());
         else
             Log.e(TAG, "No malware found! Y: " + stats.getVMMemory() + " Y(Expected): " + yTestVal + " M: " + regInfo.getM() + " X: " + stats.getThreadCount() + " B: " + regInfo.getB());
-    }
+    }*/
 
-    public Integer getThreadCount() {
-        Set<Thread> threadSet = Thread.getAllStackTraces().keySet();
-
-        Log.e(TAG, "Thread Size: " + threadSet.size());
-
-        return threadSet.size();
-    }
-
-    public Integer getVMMemory() {
-        try {
-            BufferedReader reader = new BufferedReader(new FileReader("/proc/meminfo"));
-            String totalMemory = "";
-            String freeMemory = "";
-            Integer totalMem = 0;
-            Integer freeMem = 0;
-            String line;
-
-            while ((line = reader.readLine()) != null) {
-                Log.e(TAG, line);
-                String[] pair = line.split(":");
-
-                if (pair[0].trim().equals("MemTotal")) {
-                    totalMemory = pair[1].trim().substring(0, pair[1].trim().length() - 2).trim();
-                    totalMem = Integer.parseInt(totalMemory);
-                }
-                else if (pair[0].trim().equals("MemFree")) {
-                    freeMemory = pair[1].trim().substring(0, pair[1].trim().length() - 2).trim();
-                    freeMem = Integer.parseInt(freeMemory);
-
-                    break;
-                }
-            }
-
-            Log.e(TAG, "Total Memory: " + totalMemory + " Free Memory: " + freeMemory);
-
-            return totalMem - freeMem;
-        }
-        catch (IOException ex) {
-            Log.e(TAG, ex.getMessage().toString());
-        }
-
-        return 0;
-    }
-
-    public Integer getProcessCount() {
-        try {
-            BufferedReader reader = new BufferedReader(new FileReader("/proc/stat"));
-            String line;
-
-            while ((line = reader.readLine()) != null) {
-                String[] pair = line.split(" ");
-
-                if (pair[0].trim().equals("processes")) {
-                    currCount = Integer.parseInt(pair[1]);
-                    Integer iterim = currCount - lastCount;
-                    lastCount = currCount;
-
-                    return iterim;
-                }
-            }
-        }
-        catch (IOException ex) {
-            Log.e(TAG, ex.getMessage().toString());
-        }
-
-        return 0;
-    }
-
-    public Integer getRunProcCount() {
-        try {
-            BufferedReader reader = new BufferedReader(new FileReader("/proc/stat"));
-            String line;
-
-            while ((line = reader.readLine()) != null) {
-                String[] pair = line.split(" ");
-
-                if (pair[0].trim().equals("procs_running"))
-                    lastRunProcCount = Integer.parseInt(pair[1]);
-                    return lastRunProcCount;
-            }
-        }
-        catch (IOException ex) {
-            Log.e(TAG, ex.getMessage().toString());
-        }
-
-        return 0;
-    }
-
-/*
-    public Integer getGlobalInstrCount() {
+    private Integer getGlobalInstrCount() {
         try {
             if (icount.collect())
-                Log.e(TAG, String.valueOf(icount.globalTotal()));
+                return icount.globalTotal();
         }
         catch (Exception ex) {
             Log.e(TAG, ex.getMessage().toString());
         }
 
-        return icount.globalTotal();
+        return Integer.MIN_VALUE;
     }
 
-    public Integer getThreadCount() {
-        return Debug.getThreadAllocCount();
-    }
+    private Integer getGlobalMethodInvoc() {
+        try {
+            if (icount.collect())
+                return icount.globalMethodInvocations();
+        }
+        catch (Exception ex) {
+            Log.e(TAG, ex.getMessage().toString());
+        }
 
-*/
+        return Integer.MIN_VALUE;
+    }
 
     public IBinder onBind(Intent intent){
         return null;

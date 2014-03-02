@@ -12,19 +12,9 @@ public class RegressionInfo {
         b = initB;
     }
 
-    public Double getM() {
-        return m;
-    }
+    public Double getM() { return m; }
+    public void setM(Double setM) { m = setM; }
 
-    public void setM(Double setM) {
-        m = setM;
-    }
-
-    public Double getB() {
-        return b;
-    }
-
-    public void setB(Double setB) {
-        b = setB;
-    }
+    public Double getB() { return b; }
+    public void setB(Double setB) { b = setB; }
 }
