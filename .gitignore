@@ -40,3 +40,21 @@ out/production/StatCollector/edu/drexel/StatCollector/dataaccess/Couchbase$2.cla
 out/production/StatCollector/edu/drexel/StatCollector/dataaccess/Couchbase$6.class
 
 out/production/StatCollector/edu/drexel/StatCollector/dataaccess/Couchbase.class
+
+out/production/StatCollector/edu/drexel/StatCollector/R$id.class
+
+out/production/StatCollector/edu/drexel/StatCollector/domain/CPU.class
+
+out/production/StatCollector/edu/drexel/StatCollector/domain/Dalvik.class
+
+out/production/StatCollector/edu/drexel/StatCollector/domain/Memory.class
+
+out/production/StatCollector/edu/drexel/StatCollector/domain/Network.class
+
+out/production/StatCollector/edu/drexel/StatCollector/domain/StatsToCollect.class
+
+out/production/StatCollector/edu/drexel/StatCollector/sensors/Instructions.class
+
+out/production/StatCollector/edu/drexel/StatCollector/sensors/SystemCalls.class
+
+out/production/StatCollector/edu/drexel/StatCollector/sensors/SystemReads.class
