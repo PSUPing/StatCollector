@@ -14,16 +14,11 @@ import edu.drexel.StatCollector.dataaccess.Couchbase;
 import edu.drexel.StatCollector.domain.StatsToCollect;
 import edu.drexel.StatCollector.sensors.SystemReads;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-//logMalware(stat);
-
 public class StatCollectorService extends Service {
     private static final String TAG = Utils.TAG + StatCollectorService.class.getSimpleName();
-    private static final DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
     private static final Handler handler = new Handler();
     private Date finishDate = new Date();
     private Debug.InstructionCount icount = new Debug.InstructionCount();
@@ -153,7 +148,7 @@ public class StatCollectorService extends Service {
         // Figure out when this should be finished
         Calendar cal = Calendar.getInstance();
 
-        cal.add(Calendar.HOUR_OF_DAY, 2);
+        cal.add(Calendar.HOUR, 3);
         finishDate = cal.getTime();
 
         icount.resetAndStart();

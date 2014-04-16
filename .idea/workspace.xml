@@ -93,13 +93,32 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="StatCollectorService.java" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/edu/drexel/StatCollector/StatCollectorService.java">
+      <file leaf-file-name="AndroidManifest.xml" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/AndroidManifest.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="20" column="0" selection-start="604" selection-end="604" vertical-scroll-proportion="0.38022813" vertical-offset="0" max-vertical-offset="3210">
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state line="18" column="60" selection-start="1007" selection-end="1007" vertical-scroll-proportion="0.0" vertical-offset="270" max-vertical-offset="420">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="main.xml" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/res/layout/main.xml">
+          <provider editor-type-id="android-designer">
+            <state />
+          </provider>
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="12" column="39" selection-start="539" selection-end="539" vertical-scroll-proportion="0.0" vertical-offset="180" max-vertical-offset="315">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="StatViewActivity.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/edu/drexel/StatCollector/StatViewActivity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="36" column="0" selection-start="1146" selection-end="1146" vertical-scroll-proportion="0.0" vertical-offset="540" max-vertical-offset="945">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -107,7 +126,7 @@
       <file leaf-file-name="Couchbase.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/edu/drexel/StatCollector/dataaccess/Couchbase.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="121" column="0" selection-start="4076" selection-end="4076" vertical-scroll-proportion="0.0" vertical-offset="1080" max-vertical-offset="4125">
+            <state line="121" column="0" selection-start="4076" selection-end="4076" vertical-scroll-proportion="0.0" vertical-offset="1815" max-vertical-offset="4725">
               <folding />
             </state>
           </provider>
@@ -116,28 +135,7 @@
       <file leaf-file-name="StatsToCollect.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/edu/drexel/StatCollector/domain/StatsToCollect.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="18" column="0" selection-start="505" selection-end="505" vertical-scroll-proportion="0.0" vertical-offset="98" max-vertical-offset="975">
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#704#721#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="CPU.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/edu/drexel/StatCollector/domain/CPU.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="5" column="0" selection-start="125" selection-end="125" vertical-scroll-proportion="0.0" vertical-offset="75" max-vertical-offset="450">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Dalvik.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/edu/drexel/StatCollector/domain/Dalvik.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="11" column="0" selection-start="454" selection-end="454" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="375">
+            <state line="58" column="79" selection-start="1779" selection-end="1779" vertical-scroll-proportion="0.0" vertical-offset="870" max-vertical-offset="975">
               <folding />
             </state>
           </provider>
@@ -152,19 +150,19 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Instructions.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/edu/drexel/StatCollector/sensors/Instructions.java">
+      <file leaf-file-name="SystemReads.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/edu/drexel/StatCollector/sensors/SystemReads.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="8" column="0" selection-start="247" selection-end="247" vertical-scroll-proportion="0.0" vertical-offset="120" max-vertical-offset="210">
+            <state line="81" column="0" selection-start="2439" selection-end="2439" vertical-scroll-proportion="0.68058074" vertical-offset="765" max-vertical-offset="1590">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Memory.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/edu/drexel/StatCollector/domain/Memory.java">
+      <file leaf-file-name="StatCollectorService.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/edu/drexel/StatCollector/StatCollectorService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="60" column="0" selection-start="2604" selection-end="2604" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1140">
+            <state line="19" column="13" selection-start="554" selection-end="554" vertical-scroll-proportion="0.0" vertical-offset="285" max-vertical-offset="3180">
               <folding />
             </state>
           </provider>
@@ -213,15 +211,15 @@
         <option value="$PROJECT_DIR$/src/edu/drexel/StatCollector/StatsToCollect.java" />
         <option value="$PROJECT_DIR$/src/edu/drexel/StatCollector/domain/Dalvik.java" />
         <option value="$PROJECT_DIR$/src/edu/drexel/StatCollector/domain/CPU.java" />
-        <option value="$PROJECT_DIR$/src/edu/drexel/StatCollector/sensors/Instructions.java" />
         <option value="$PROJECT_DIR$/src/edu/drexel/StatCollector/domain/Memory.java" />
         <option value="$PROJECT_DIR$/src/edu/drexel/StatCollector/domain/Network.java" />
-        <option value="$PROJECT_DIR$/AndroidManifest.xml" />
-        <option value="$PROJECT_DIR$/src/edu/drexel/StatCollector/StatViewActivity.java" />
         <option value="$PROJECT_DIR$/src/edu/drexel/StatCollector/domain/StatsToCollect.java" />
         <option value="$PROJECT_DIR$/src/edu/drexel/StatCollector/sensors/SystemReads.java" />
-        <option value="$PROJECT_DIR$/src/edu/drexel/StatCollector/StatCollectorService.java" />
         <option value="$PROJECT_DIR$/src/edu/drexel/StatCollector/dataaccess/Couchbase.java" />
+        <option value="$PROJECT_DIR$/src/edu/drexel/StatCollector/StatCollectorService.java" />
+        <option value="$PROJECT_DIR$/src/edu/drexel/StatCollector/StatViewActivity.java" />
+        <option value="$PROJECT_DIR$/src/edu/drexel/StatCollector/sensors/Instructions.java" />
+        <option value="$PROJECT_DIR$/AndroidManifest.xml" />
       </list>
     </option>
   </component>
@@ -508,6 +506,38 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="StatCollector" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="StatCollector" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="res" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="StatCollector" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="StatCollector" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="res" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="layout" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
       <pane id="PackagesPane" />
@@ -549,12 +579,6 @@
         <option name="Make" enabled="false" />
       </method>
     </configuration>
-    <configuration default="true" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType" factoryName="Plugin" singleton="true">
-      <module name="" />
-      <option name="VM_PARAMETERS" value="-Xmx512m -Xms256m -XX:MaxPermSize=250m" />
-      <option name="PROGRAM_PARAMETERS" />
-      <method />
-    </configuration>
     <configuration default="true" type="GroovyScriptRunConfiguration" factoryName="Groovy">
       <module name="" />
       <setting name="path" value="" />
@@ -562,6 +586,12 @@
       <setting name="params" value="" />
       <setting name="workDir" value="file://$PROJECT_DIR$" />
       <setting name="debug" value="false" />
+      <method />
+    </configuration>
+    <configuration default="true" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType" factoryName="Plugin" singleton="true">
+      <module name="" />
+      <option name="VM_PARAMETERS" value="-Xmx512m -Xms256m -XX:MaxPermSize=250m" />
+      <option name="PROGRAM_PARAMETERS" />
       <method />
     </configuration>
     <configuration default="true" type="AndroidTestRunConfigurationType" factoryName="Android Tests">
@@ -592,6 +622,19 @@
       <option name="PORT" value="5005" />
       <method />
     </configuration>
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <module name="" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="HTML_FILE_NAME" />
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <option name="VM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <method />
+    </configuration>
     <configuration default="true" type="TestNG" factoryName="TestNG">
       <module name="" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
@@ -617,19 +660,6 @@
       <envs />
       <properties />
       <listeners />
-      <method />
-    </configuration>
-    <configuration default="true" type="Applet" factoryName="Applet">
-      <module name="" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="HTML_FILE_NAME" />
-      <option name="HTML_USED" value="false" />
-      <option name="WIDTH" value="400" />
-      <option name="HEIGHT" value="300" />
-      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
-      <option name="VM_PARAMETERS" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
       <method />
     </configuration>
     <configuration default="true" type="Application" factoryName="Application">
@@ -761,19 +791,19 @@
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
-      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32942554" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.29425555" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.17291667" sideWeight="0.6733167" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.17291667" sideWeight="0.6733167" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32473624" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3298611" sideWeight="0.6708229" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32590857" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -814,10 +844,50 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/edu/drexel/StatCollector/StatCollectorService.java">
       <provider selected="true" editor-type-id="text-editor">
+        <state line="19" column="13" selection-start="554" selection-end="554" vertical-scroll-proportion="0.0" vertical-offset="285" max-vertical-offset="3180">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/edu/drexel/StatCollector/sensors/SystemCalls.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="22" column="1" selection-start="416" selection-end="416" vertical-scroll-proportion="0.0" vertical-offset="330" max-vertical-offset="420">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/edu/drexel/StatCollector/domain/Network.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="29" column="0" selection-start="808" selection-end="808" vertical-scroll-proportion="0.0" vertical-offset="435" max-vertical-offset="975">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/edu/drexel/StatCollector/domain/Memory.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="60" column="0" selection-start="2604" selection-end="2604" vertical-scroll-proportion="0.0" vertical-offset="900" max-vertical-offset="1140">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/edu/drexel/StatCollector/sensors/SystemCalls.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="22" column="1" selection-start="416" selection-end="416" vertical-scroll-proportion="0.0" vertical-offset="330" max-vertical-offset="420">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/edu/drexel/StatCollector/domain/Network.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="29" column="0" selection-start="808" selection-end="808" vertical-scroll-proportion="0.0" vertical-offset="435" max-vertical-offset="975">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/edu/drexel/StatCollector/StatCollectorService.java">
+      <provider selected="true" editor-type-id="text-editor">
         <state line="116" column="41" selection-start="5157" selection-end="5157" vertical-scroll-proportion="0.0" vertical-offset="1476" max-vertical-offset="3195">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -845,20 +915,30 @@
     <entry file="file://$PROJECT_DIR$/src/edu/drexel/StatCollector/domain/Dalvik.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="11" column="0" selection-start="454" selection-end="454" vertical-scroll-proportion="0.0" vertical-offset="165" max-vertical-offset="375">
-          <folding />
+          <folding>
+            <element signature="e#330#331#0" expanded="false" />
+            <element signature="e#356#357#0" expanded="false" />
+            <element signature="e#416#417#0" expanded="false" />
+            <element signature="e#451#452#0" expanded="false" />
+            <element signature="e#492#493#0" expanded="false" />
+            <element signature="e#516#517#0" expanded="false" />
+            <element signature="e#570#571#0" expanded="false" />
+            <element signature="e#599#600#0" expanded="false" />
+            <element signature="e#641#642#0" expanded="false" />
+            <element signature="e#666#667#0" expanded="false" />
+            <element signature="e#726#727#0" expanded="false" />
+            <element signature="e#761#762#0" expanded="false" />
+            <element signature="e#804#805#0" expanded="false" />
+            <element signature="e#830#831#0" expanded="false" />
+            <element signature="e#890#891#0" expanded="false" />
+            <element signature="e#925#926#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/edu/drexel/StatCollector/Utils.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="26" column="0" selection-start="724" selection-end="724" vertical-scroll-proportion="0.0" vertical-offset="390" max-vertical-offset="660">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/edu/drexel/StatCollector/sensors/Instructions.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="0" selection-start="247" selection-end="247" vertical-scroll-proportion="0.0" vertical-offset="120" max-vertical-offset="210">
           <folding />
         </state>
       </provider>
@@ -887,9 +967,7 @@
     <entry file="file://$PROJECT_DIR$/src/edu/drexel/StatCollector/StatCollectorService.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="35" column="0" selection-start="1217" selection-end="1217" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3090">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -926,19 +1004,14 @@
     <entry file="file://$PROJECT_DIR$/src/edu/drexel/StatCollector/domain/StatsToCollect.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="10" column="31" selection-start="252" selection-end="264" vertical-scroll-proportion="0.0" vertical-offset="150" max-vertical-offset="1530">
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#704#721#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/edu/drexel/StatCollector/StatCollectorService.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="35" column="0" selection-start="1217" selection-end="1217" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3090">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -975,19 +1048,14 @@
     <entry file="file://$PROJECT_DIR$/src/edu/drexel/StatCollector/domain/StatsToCollect.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="10" column="31" selection-start="252" selection-end="264" vertical-scroll-proportion="0.0" vertical-offset="150" max-vertical-offset="1530">
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#704#721#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/edu/drexel/StatCollector/StatCollectorService.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="0">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1008,19 +1076,14 @@
     <entry file="file://$PROJECT_DIR$/src/edu/drexel/StatCollector/domain/StatsToCollect.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="8" column="13" selection-start="192" selection-end="192" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="0">
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#704#721#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/edu/drexel/StatCollector/StatCollectorService.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="0">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1034,10 +1097,7 @@
     <entry file="file://$PROJECT_DIR$/src/edu/drexel/StatCollector/domain/StatsToCollect.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="54" column="0" selection-start="1370" selection-end="1370" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="0">
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#704#721#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1056,14 +1116,6 @@
     <entry file="file://$PROJECT_DIR$/jni/edu_drexel_StatCollector_sensors_SystemCalls.h">
       <provider selected="true" editor-type-id="text-editor">
         <state line="16" column="0" selection-start="409" selection-end="521" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="645" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/res/layout/main.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="0" selection-start="316" selection-end="316" vertical-scroll-proportion="0.16" vertical-offset="0" max-vertical-offset="750" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/jni/Android.mk">
@@ -1092,27 +1144,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/edu/drexel/StatCollector/sensors/SystemCalls.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="22" column="1" selection-start="416" selection-end="416" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="420">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/edu/drexel/StatCollector/domain/Network.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="29" column="0" selection-start="808" selection-end="808" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="975">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/edu/drexel/StatCollector/sensors/Instructions.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="0" selection-start="247" selection-end="247" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="570">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/edu/drexel/StatCollector/Utils.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="26" column="0" selection-start="724" selection-end="724" vertical-scroll-proportion="0.0" vertical-offset="25" max-vertical-offset="600">
@@ -1127,31 +1158,27 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/AndroidManifest.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="19" column="64" selection-start="1074" selection-end="1074" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="420">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/edu/drexel/StatCollector/StatViewActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="21" column="0" selection-start="696" selection-end="696" vertical-scroll-proportion="0.13092269" vertical-offset="0" max-vertical-offset="802">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/edu/drexel/StatCollector/sensors/SystemReads.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="81" column="0" selection-start="2439" selection-end="2439" vertical-scroll-proportion="0.0" vertical-offset="788" max-vertical-offset="1590">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/edu/drexel/StatCollector/domain/Dalvik.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="11" column="0" selection-start="454" selection-end="454" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="375">
-          <folding />
+          <folding>
+            <element signature="e#330#331#0" expanded="false" />
+            <element signature="e#356#357#0" expanded="false" />
+            <element signature="e#416#417#0" expanded="false" />
+            <element signature="e#451#452#0" expanded="false" />
+            <element signature="e#492#493#0" expanded="false" />
+            <element signature="e#516#517#0" expanded="false" />
+            <element signature="e#570#571#0" expanded="false" />
+            <element signature="e#599#600#0" expanded="false" />
+            <element signature="e#641#642#0" expanded="false" />
+            <element signature="e#666#667#0" expanded="false" />
+            <element signature="e#726#727#0" expanded="false" />
+            <element signature="e#761#762#0" expanded="false" />
+            <element signature="e#804#805#0" expanded="false" />
+            <element signature="e#830#831#0" expanded="false" />
+            <element signature="e#890#891#0" expanded="false" />
+            <element signature="e#925#926#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1162,16 +1189,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/edu/drexel/StatCollector/domain/StatsToCollect.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="18" column="0" selection-start="505" selection-end="505" vertical-scroll-proportion="0.0" vertical-offset="98" max-vertical-offset="975">
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#704#721#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/edu/drexel/StatCollector/domain/Memory.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="60" column="0" selection-start="2604" selection-end="2604" vertical-scroll-proportion="0.0" vertical-offset="450" max-vertical-offset="1140">
@@ -1179,12 +1196,62 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/res/layout/main.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="12" column="39" selection-start="539" selection-end="539" vertical-scroll-proportion="0.0" vertical-offset="180" max-vertical-offset="315">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/edu/drexel/StatCollector/StatViewActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="36" column="0" selection-start="1146" selection-end="1146" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="720">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AndroidManifest.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="18" column="60" selection-start="1007" selection-end="1007" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="420">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/edu/drexel/StatCollector/StatCollectorService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="20" column="0" selection-start="604" selection-end="604" vertical-scroll-proportion="0.38022813" vertical-offset="0" max-vertical-offset="3210">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state line="19" column="13" selection-start="554" selection-end="554" vertical-scroll-proportion="0.0" vertical-offset="41" max-vertical-offset="3135">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/edu/drexel/StatCollector/domain/StatsToCollect.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="58" column="79" selection-start="1779" selection-end="1779" vertical-scroll-proportion="0.0" vertical-offset="23" max-vertical-offset="975">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/edu/drexel/StatCollector/sensors/SystemCalls.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="22" column="1" selection-start="416" selection-end="416" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="420">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/edu/drexel/StatCollector/domain/Network.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="29" column="0" selection-start="808" selection-end="808" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="915">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/edu/drexel/StatCollector/sensors/SystemReads.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="81" column="0" selection-start="2439" selection-end="2439" vertical-scroll-proportion="0.68058074" vertical-offset="765" max-vertical-offset="1590">
+          <folding />
         </state>
       </provider>
     </entry>

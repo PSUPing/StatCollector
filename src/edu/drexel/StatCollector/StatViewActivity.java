@@ -8,6 +8,7 @@ import android.os.Bundle;
 
 import android.provider.Settings;
 import android.util.Log;
+import android.view.WindowManager;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import com.couchbase.cblite.router.CBLURLStreamHandlerFactory;
@@ -32,7 +33,6 @@ public class StatViewActivity extends Activity {
         Log.e(TAG, Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID));
 
         TextView test = (TextView)findViewById(R.id.tempText);
-
         test.setText("");
 
         Couchbase.filesDir = getFilesDir().getAbsolutePath();
