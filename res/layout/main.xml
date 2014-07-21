@@ -2,14 +2,76 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
               android:layout_width="fill_parent"
-              android:layout_height="fill_parent"
-        >
-    <TextView
-            android:maxLines = "50"
-            android:scrollbars = "vertical"
-            android:layout_width="fill_parent"
-            android:layout_height="400dp"
-            android:text="Hello World, MyActivity"
-            android:id="@+id/tempText"/>
+              android:layout_height="fill_parent">
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  android:orientation="horizontal"
+                  android:layout_width="fill_parent"
+                  android:layout_height="75px">
+        <LinearLayout
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:layout_width="0dip"
+                android:layout_height="0dip"
+                android:id="@+id/dummyView"/>
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Run ID: "
+                android:id="@+id/runLabel"/>
+        <EditText
+                android:layout_width="wrap_content"
+                android:width="400sp"
+                android:layout_height="wrap_content"
+                android:id="@+id/runName"/>
+        <Space
+                android:layout_width="fill_parent"
+                android:layout_height="20px" />
+    </LinearLayout>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  android:orientation="horizontal"
+                  android:layout_width="fill_parent"
+                  android:layout_height="125px">
+        <Space
+                android:layout_width="100px"
+                android:layout_height="fill_parent" />
+        <CheckBox android:layout_width="125px"
+                  android:layout_height="fill_parent"
+                  android:text="Processes"
+                  android:id="@+id/logCPU"/>
+        <CheckBox android:layout_width="100px"
+                  android:layout_height="fill_parent"
+                  android:text="Memory"
+                  android:id="@+id/logMem"/>
+        <CheckBox android:layout_width="100px"
+                  android:layout_height="fill_parent"
+                  android:text="Dalvik"
+                  android:id="@+id/logDalvik"/>
+        <CheckBox android:layout_width="100px"
+                  android:layout_height="fill_parent"
+                  android:text="Network"
+                  android:id="@+id/logNetwork"/>
+    </LinearLayout>
+    <LinearLayout   xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:orientation="vertical"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent">
+        <Button
+                android:text="Start Collecting"
+                android:layout_width="350px"
+                android:layout_height="75px"
+                android:layout_gravity="center_horizontal"
+                android:id="@+id/startStats"/>
+        <Space
+                android:layout_width="fill_parent"
+                android:layout_height="100px"/>
+        <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="75px"
+                android:layout_gravity="center_horizontal"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:gravity="center_horizontal"
+                android:text="Ready"
+                android:id="@+id/sysStatus"/>
+    </LinearLayout>
 </LinearLayout>
-

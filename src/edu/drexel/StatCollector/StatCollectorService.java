@@ -14,16 +14,23 @@ import edu.drexel.StatCollector.dataaccess.Couchbase;
 import edu.drexel.StatCollector.domain.StatsToCollect;
 import edu.drexel.StatCollector.sensors.SystemReads;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 public class StatCollectorService extends Service {
     private static final String TAG = Utils.TAG + StatCollectorService.class.getSimpleName();
     private static final Handler handler = new Handler();
-    private Date finishDate = new Date();
+//    private Date finishDate = new Date();
     private Debug.InstructionCount icount = new Debug.InstructionCount();
     private IntentFilter iFilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
     private Intent actIntent;
+    private String nameOfRun;
+    private ArrayList<StatsToCollect> statList = new ArrayList<StatsToCollect>();
+    private int startPos = 0;
+    private int endPos = 0;
+    private boolean collectSensors = false;
     private boolean logCPU = false;
     private boolean logDalvik = false;
     private boolean logMem = false;
@@ -33,16 +40,21 @@ public class StatCollectorService extends Service {
         @Override
         public void run() {
             try {
-                Intent batteryStatus = registerReceiver(null, iFilter);
-                Integer level = batteryStatus.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
-                Integer status = batteryStatus.getIntExtra(BatteryManager.EXTRA_STATUS, -1);
+//                Intent batteryStatus = registerReceiver(null, iFilter);
+//                Integer level = batteryStatus.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
+//                Integer status = batteryStatus.getIntExtra(BatteryManager.EXTRA_STATUS, -1);
                 StatsToCollect stat = new StatsToCollect();
-                Long captureWaitTime = 10000L;
+                Long captureWaitTime = 100L;
 
+                Log.e(TAG, "Delayed write: " + String.valueOf(statList.size()));
+
+                stat.runName = nameOfRun;
                 stat.logCPU = logCPU;
                 stat.logDalvik = logDalvik;
                 stat.logMem = logMem;
                 stat.logNetwork = logNetwork;
+
+                icount.resetAndStart();
 
                 if (logCPU) {
                     SystemReads sysRead = new SystemReads();
@@ -88,21 +100,32 @@ public class StatCollectorService extends Service {
                     stat.networkNode.getCurrTx();
                     stat.networkNode.getCurrRx();
 
-                    for (ApplicationInfo appInfo : getPackageManager().getInstalledApplications(0)) {
+                    /*for (ApplicationInfo appInfo : getPackageManager().getInstalledApplications(0)) {
                         stat.apps.put(appInfo.uid, appInfo.packageName);
                         stat.networkNode.getAppTx(appInfo.uid);
                         stat.networkNode.getAppRx(appInfo.uid);
-                    }
+                    }*/
                 }
 
-                if (status == BatteryManager.BATTERY_STATUS_CHARGING)
+                stat.setCalcWaitTime(captureWaitTime);
+                Log.e(TAG, "Delayed write: " + String.valueOf(statList.size()));
+                statList.add(stat);
+                Log.e(TAG, "Delayed write: " + statList.get(endPos).runName);
+                endPos++;
+
+//                Couchbase.createStat(Couchbase.makeCBStatObj(stat));
+
+                if (collectSensors)
+                    handler.postDelayed(captureStats, captureWaitTime);
+
+/*                if (status == BatteryManager.BATTERY_STATUS_CHARGING)
                     captureWaitTime = 5000L;
                 else
                     captureWaitTime = 10000L;
 
                 // Reset the instructions and start the counter over again
                 if (level > 30 || status == BatteryManager.BATTERY_STATUS_CHARGING) {
-                    Calendar cal = Calendar.getInstance();
+//                    Calendar cal = Calendar.getInstance();
 
                     stat.setCalcWaitTime(captureWaitTime);
                     Couchbase.createStat(Couchbase.makeCBStatObj(stat));
@@ -116,9 +139,32 @@ public class StatCollectorService extends Service {
                     stat.battery = level;
                     stat.setCalcWaitTime(captureWaitTime);
                     Couchbase.createStat(Couchbase.makeCBStatObj(stat));
-                }
+                }*/
             }
             catch (Exception ex) {
+                Log.e(TAG, "Delayed write: " + ex.getMessage());
+            }
+        }
+    };
+
+    private Runnable persistStats = new Runnable() {
+        @Override
+        public void run() {
+            try {
+                Long persistWaitTime = 15000L;
+
+                if (startPos <= endPos) {
+                    for (int x = startPos; x < endPos; x++) {
+                        Couchbase.createStat(Couchbase.makeCBStatObj(statList.get(x)));
+                    }
+
+                    startPos = endPos + 1;
+                    handler.postDelayed(persistStats, persistWaitTime);
+                }
+                else if (startPos == 0) {
+                    handler.postDelayed(persistStats, persistWaitTime);
+                }
+            } catch (Exception ex) {
                 Log.e(TAG, ex.getMessage());
             }
         }
@@ -132,7 +178,7 @@ public class StatCollectorService extends Service {
     public void onCreate() {
         super.onCreate();
 
-        try {
+/*        try {
             ApplicationInfo ai = getPackageManager().getApplicationInfo(getPackageName(), PackageManager.GET_META_DATA);
             Bundle bundle = ai.metaData;
 
@@ -143,27 +189,46 @@ public class StatCollectorService extends Service {
         }
         catch (PackageManager.NameNotFoundException nnfEx) {
             Log.e(TAG, "Wrong name: " + nnfEx.getMessage());
-        }
+        }*/
 
         // Figure out when this should be finished
-        Calendar cal = Calendar.getInstance();
+/*        Calendar cal = Calendar.getInstance();
 
         cal.add(Calendar.HOUR, 3);
-        finishDate = cal.getTime();
-
+        finishDate = cal.getTime();*/
         icount.resetAndStart();
-        captureStats.run();
+        collectSensors = true;
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         super.onStartCommand(intent, flags, startId);
+
+        // Get the run name
         actIntent = intent;
-        return START_STICKY;
+        nameOfRun = actIntent.getStringExtra(StatViewActivity.RUN_NAME);
+        logCPU = actIntent.getBooleanExtra("logCPU", false);
+        logMem = actIntent.getBooleanExtra("logMem", false);
+        logDalvik = actIntent.getBooleanExtra("logDalvik", false);
+        logNetwork = actIntent.getBooleanExtra("logNetwork", false);
+
+//        icount.resetAndStart();
+//        collectSensors = true;
+
+        // Start the capture and persistence processes
+        persistStats.run();
+        captureStats.run();
+
+        Log.e(TAG, "Name of Run (" + StatViewActivity.RUN_NAME + "): " + nameOfRun);
+
+        return Service.START_STICKY;
     }
 
     @Override
     public void onDestroy() {
+        collectSensors = false;
+        handler.removeCallbacks(captureStats);
+        Log.e(TAG, "Stop Service");
         super.onDestroy();
     }
 

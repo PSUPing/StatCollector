@@ -16,6 +16,7 @@ public class StatsToCollect {
     public boolean logDalvik = false;
     public boolean logMem = false;
     public boolean logNetwork = false;
+    public String runName;
     public Integer battery = 0;
     public Memory memNode;
     public CPU cpuNode;

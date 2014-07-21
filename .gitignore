@@ -58,3 +58,7 @@ out/production/StatCollector/edu/drexel/StatCollector/sensors/Instructions.class
 out/production/StatCollector/edu/drexel/StatCollector/sensors/SystemCalls.class
 
 out/production/StatCollector/edu/drexel/StatCollector/sensors/SystemReads.class
+
+out/production/StatCollector/edu/drexel/StatCollector/StatCollectorService$2.class
+
+out/production/StatCollector/edu/drexel/StatCollector/StatViewActivity$1.class

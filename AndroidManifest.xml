@@ -14,10 +14,10 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <meta-data android:name="logCPU" android:value="false" />
+        <meta-data android:name="logCPU" android:value="true" />
         <meta-data android:name="logDalvik" android:value="false" />
         <meta-data android:name="logMem" android:value="true" />
         <meta-data android:name="logNetwork" android:value="false" />
-        <service android:name=".StatCollectorService"/>
+        <service android:name=".StatCollectorService" />
     </application>
 </manifest>

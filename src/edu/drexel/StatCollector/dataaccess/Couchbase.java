@@ -29,11 +29,11 @@ import java.util.Map;
 
 public class Couchbase {
     public static final String TAG = "StatCollector";
-    public static final String DATABASE_NAME = "examiner";
+    public static final String DATABASE_NAME = "ex_ml";
     public static final String dDocName = "get";
     public static final String dDocId = "_design/" + dDocName;
     public static final String regQuery = "get_regs";
-    public static final String DATABASE_URL = "http://192.168.100.11:4984";  // 10.0.2.2 == Android Simulator equivalent of 127.0.0.1
+    public static final String DATABASE_URL = "http://192.168.100.12:4984";  // 10.0.2.2 == Android Simulator equivalent of 127.0.0.1
     public static String filesDir;
 
     public static Context baseContext;
@@ -91,8 +91,11 @@ public class Couchbase {
         ObjectNode statNode = JsonNodeFactory.instance.objectNode();
 
         statNode.put("_id", statObj.getID());
+        statNode.put("run_name", statObj.runName);
         statNode.put("calc_wait", statObj.getCalcWaitTime());
         statNode.put("date_time", statObj.getDateTime());
+
+        Log.e(TAG, "Name of ID: " + statNode.get("_id"));
 
         if (statObj.battery > 0)
             statNode.put("battery_level", statObj.battery);

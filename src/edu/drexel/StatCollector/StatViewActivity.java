@@ -1,25 +1,33 @@
 package edu.drexel.StatCollector;
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
+import android.content.ComponentName;
 import android.content.Intent;
 import android.app.Activity;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
-
 import android.provider.Settings;
 import android.util.Log;
-import android.view.WindowManager;
-import android.widget.ProgressBar;
+import android.view.View;
+import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.TextView;
+
+import android.widget.Toast;
 import com.couchbase.cblite.router.CBLURLStreamHandlerFactory;
 import edu.drexel.StatCollector.dataaccess.Couchbase;
-import edu.drexel.StatCollector.sensors.SystemCalls;
-
-import java.io.File;
 
 public class StatViewActivity extends Activity {
+    public static final String RUN_NAME = "runName";
     private static final String TAG = StatViewActivity.class.getSimpleName();
-    private SystemCalls sysCalls = new SystemCalls();
+    private boolean start = true;
+    private TextView runName;
+    private TextView sysStatus;
+    private Button statButton;
+    private CheckBox chkLogCPU;
+    private CheckBox chkLogMem;
+    private CheckBox chkLogDalvik;
+    private CheckBox chkLogNetwork;
 
     {
         CBLURLStreamHandlerFactory.registerSelfIgnoreError();
@@ -30,29 +38,84 @@ public class StatViewActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 
-        Log.e(TAG, Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID));
+        // Get screen objects
+        sysStatus = (TextView)findViewById(R.id.sysStatus);
+        runName = (TextView)findViewById(R.id.runName);
+        statButton = (Button)findViewById(R.id.startStats);
+        chkLogCPU = (CheckBox)findViewById(R.id.logCPU);
+        chkLogMem = (CheckBox)findViewById(R.id.logMem);
+        chkLogDalvik = (CheckBox)findViewById(R.id.logDalvik);
+        chkLogNetwork = (CheckBox)findViewById(R.id.logNetwork);
 
-        TextView test = (TextView)findViewById(R.id.tempText);
-        test.setText("");
+        try {
+            ApplicationInfo ai = getBaseContext().getPackageManager().getApplicationInfo(getBaseContext().getPackageName(), PackageManager.GET_META_DATA);
+            Bundle bundle = ai.metaData;
 
+            chkLogCPU.setChecked(bundle.getBoolean("logCPU"));
+            chkLogMem.setChecked(bundle.getBoolean("logMem"));
+            chkLogDalvik.setChecked(bundle.getBoolean("logDalvik"));
+            chkLogNetwork.setChecked(bundle.getBoolean("logNetwork"));
+            sysStatus.setText("Ready - " + Couchbase.DATABASE_URL + "/" + Couchbase.DATABASE_NAME);
+        }
+        catch (PackageManager.NameNotFoundException nnfEx) {
+            Log.e(TAG, nnfEx.getMessage().toString());
+        }
+
+        statButton.setOnClickListener(new View.OnClickListener() {
+            Intent svcIntent = new Intent(getBaseContext(), StatCollectorService.class);
+
+            public void onClick(View v) {
+                if (runName.getText().toString().trim().equals("")) {
+                    sysStatus.setText("A name for the run must be provided");
+                }
+                else {
+                    if (start) {
+                        Log.e(TAG, Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID));
+                        sysStatus.setText("StatCollector service running...");
+                        start = false;
+                        statButton.setText("Stop Collecting");
+                        String nameOfRun = runName.getText().toString();
+                        runName.setEnabled(false);
+                        chkLogCPU.setEnabled(false);
+                        chkLogMem.setEnabled(false);
+                        chkLogDalvik.setEnabled(false);
+                        chkLogNetwork.setEnabled(false);
+
+                        svcIntent.putExtra(RUN_NAME, nameOfRun);
+                        svcIntent.putExtra("logCPU", chkLogCPU.isChecked());
+                        svcIntent.putExtra("logMem", chkLogMem.isChecked());
+                        svcIntent.putExtra("logDalvik", chkLogDalvik.isChecked());
+                        svcIntent.putExtra("logNetwork", chkLogNetwork.isChecked());
+                        startService(svcIntent);
+                    }
+                    else {
+                        stopService(svcIntent);
+
+                        try {
+                            ApplicationInfo ai = getBaseContext().getPackageManager().getApplicationInfo(getBaseContext().getPackageName(), PackageManager.GET_META_DATA);
+                            Bundle bundle = ai.metaData;
+
+                            start = true;
+                            statButton.setText("Start Collecting");
+                            runName.setEnabled(true);
+                            chkLogCPU.setEnabled(true);
+                            chkLogMem.setEnabled(true);
+                            chkLogDalvik.setEnabled(true);
+                            chkLogNetwork.setEnabled(true);
+                            runName.setText("");
+                            sysStatus.setText("Ready - " + Couchbase.DATABASE_URL + "/" + Couchbase.DATABASE_NAME);
+                        }
+                        catch (PackageManager.NameNotFoundException nnfEx) {
+                            Log.e(TAG, nnfEx.getMessage().toString());
+                        }
+                    }
+                }
+            }
+        });
+
+        // Start Couchbase
         Couchbase.filesDir = getFilesDir().getAbsolutePath();
         Couchbase.baseContext = getBaseContext();
         Couchbase.startCB();
-
-        startService(new Intent(this, StatCollectorService.class));
-    }
-
-    private boolean isInteger(String str) {
-        if (str == null) {
-            return false;
-        }
-
-        for (int i = 0; i < str.length(); i++) {
-            if (!java.lang.Character.isDigit(str.charAt(i))) {
-                return false;
-            }
-        }
-
-        return true;
     }
 }
