@@ -29,11 +29,11 @@ import java.util.Map;
 
 public class Couchbase {
     public static final String TAG = "StatCollector";
-    public static final String DATABASE_NAME = "ex_ml";
+//    public static final String DATABASE_NAME = "examiner";
     public static final String dDocName = "get";
     public static final String dDocId = "_design/" + dDocName;
     public static final String regQuery = "get_regs";
-    public static final String DATABASE_URL = "http://192.168.100.12:4984";  // 10.0.2.2 == Android Simulator equivalent of 127.0.0.1
+//    public static final String DATABASE_URL = "http://192.168.100.12:4984";  // 10.0.2.2 == Android Simulator equivalent of 127.0.0.1
     public static String filesDir;
 
     public static Context baseContext;
@@ -41,6 +41,9 @@ public class Couchbase {
     public static HttpClient httpClient;
     public static CouchDbConnector couchDbConnector;
     public static CouchDbInstance dbInstance;
+    public static String databaseURL;
+    public static String databasePort;
+    public static String databaseName;
 
     protected static ReplicationCommand pushReplicationCommand;
     protected static ReplicationCommand pullReplicationCommand;
@@ -68,7 +71,7 @@ public class Couchbase {
 
                 @Override
                 protected void doInBackground() {
-                    couchDbConnector = dbInstance.createConnector(DATABASE_NAME, true);
+                    couchDbConnector = dbInstance.createConnector(databaseName, true);
                 }
 
                 @Override
@@ -235,7 +238,7 @@ public class Couchbase {
 
     public static RegressionInfo getRegression() {
         RegressionInfo regInfo = new RegressionInfo();
-        CBLDatabase db = server.getDatabaseNamed(DATABASE_NAME);
+        CBLDatabase db = server.getDatabaseNamed(databaseName);
         CBLView view = db.getViewNamed(String.format("%s/%s", dDocName, regQuery));
 
         view.setMapReduceBlocks(new CBLViewMapBlock() {
@@ -276,10 +279,12 @@ public class Couchbase {
 
     private static void startReplications() {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(baseContext);
-        String defaultDatabaseUrl = DATABASE_URL + "/" + DATABASE_NAME;
+        String defaultDatabaseUrl = "http://" + databaseURL + ":" + databasePort + "/" + databaseName;
+
+        Log.e(TAG, defaultDatabaseUrl);
 
         pushReplicationCommand = new ReplicationCommand.Builder()
-                .source(DATABASE_NAME)
+                .source(databaseName)
                 .target(prefs.getString("sync_url", defaultDatabaseUrl))
                 .continuous(true)
                 .build();
@@ -296,7 +301,7 @@ public class Couchbase {
 
         pullReplicationCommand = new ReplicationCommand.Builder()
                 .source(prefs.getString("sync_url", defaultDatabaseUrl))
-                .target(DATABASE_NAME)
+                .target(databaseName)
                 .continuous(true)
                 .build();
 

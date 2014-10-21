@@ -151,7 +151,7 @@ public class StatCollectorService extends Service {
         @Override
         public void run() {
             try {
-                Long persistWaitTime = 15000L;
+                Long persistWaitTime = 60000L;
 
                 if (startPos <= endPos) {
                     for (int x = startPos; x < endPos; x++) {

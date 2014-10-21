@@ -18,6 +18,9 @@
         <meta-data android:name="logDalvik" android:value="false" />
         <meta-data android:name="logMem" android:value="true" />
         <meta-data android:name="logNetwork" android:value="false" />
+        <meta-data android:name="ipAddress" android:value="192.168.100.12" />
+        <meta-data android:name="port" android:value="4984" />
+        <meta-data android:name="dbName" android:value="examiner" />
         <service android:name=".StatCollectorService" />
     </application>
 </manifest>

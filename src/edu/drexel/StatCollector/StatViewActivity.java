@@ -23,6 +23,9 @@ public class StatViewActivity extends Activity {
     private boolean start = true;
     private TextView runName;
     private TextView sysStatus;
+    private TextView ipAddr;
+    private TextView port;
+    private TextView dbName;
     private Button statButton;
     private CheckBox chkLogCPU;
     private CheckBox chkLogMem;
@@ -46,16 +49,27 @@ public class StatViewActivity extends Activity {
         chkLogMem = (CheckBox)findViewById(R.id.logMem);
         chkLogDalvik = (CheckBox)findViewById(R.id.logDalvik);
         chkLogNetwork = (CheckBox)findViewById(R.id.logNetwork);
+        ipAddr = (TextView)findViewById(R.id.ipAddr);
+        port = (TextView)findViewById(R.id.port);
+        dbName = (TextView)findViewById(R.id.dbName);
 
         try {
             ApplicationInfo ai = getBaseContext().getPackageManager().getApplicationInfo(getBaseContext().getPackageName(), PackageManager.GET_META_DATA);
             Bundle bundle = ai.metaData;
 
+            Couchbase.databaseURL = bundle.getString("ipAddress");
+            Integer tempPort = bundle.getInt("port");
+            Couchbase.databasePort = tempPort.toString();
+            Couchbase.databaseName = bundle.getString("dbName");
+
             chkLogCPU.setChecked(bundle.getBoolean("logCPU"));
             chkLogMem.setChecked(bundle.getBoolean("logMem"));
             chkLogDalvik.setChecked(bundle.getBoolean("logDalvik"));
             chkLogNetwork.setChecked(bundle.getBoolean("logNetwork"));
-            sysStatus.setText("Ready - " + Couchbase.DATABASE_URL + "/" + Couchbase.DATABASE_NAME);
+            ipAddr.setText(Couchbase.databaseURL);
+            port.setText(Couchbase.databasePort);
+            dbName.setText(Couchbase.databaseName);
+            sysStatus.setText("Ready - http://" + Couchbase.databaseURL + ":" + Couchbase.databasePort + "/" + Couchbase.databaseName);
         }
         catch (PackageManager.NameNotFoundException nnfEx) {
             Log.e(TAG, nnfEx.getMessage().toString());
@@ -103,7 +117,7 @@ public class StatViewActivity extends Activity {
                             chkLogDalvik.setEnabled(true);
                             chkLogNetwork.setEnabled(true);
                             runName.setText("");
-                            sysStatus.setText("Ready - " + Couchbase.DATABASE_URL + "/" + Couchbase.DATABASE_NAME);
+                            sysStatus.setText("Ready - " + Couchbase.databaseURL + ":" + Couchbase.databasePort + "/" + Couchbase.databaseName);
                         }
                         catch (PackageManager.NameNotFoundException nnfEx) {
                             Log.e(TAG, nnfEx.getMessage().toString());
