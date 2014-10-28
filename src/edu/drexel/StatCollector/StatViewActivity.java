@@ -95,6 +95,11 @@ public class StatViewActivity extends Activity {
                         chkLogDalvik.setEnabled(false);
                         chkLogNetwork.setEnabled(false);
 
+                        // Update the database settings
+                        Couchbase.databaseURL = ipAddr.getText().toString();
+                        Couchbase.databasePort = port.getText().toString();
+                        Couchbase.databaseName = dbName.getText().toString();
+
                         svcIntent.putExtra(RUN_NAME, nameOfRun);
                         svcIntent.putExtra("logCPU", chkLogCPU.isChecked());
                         svcIntent.putExtra("logMem", chkLogMem.isChecked());
