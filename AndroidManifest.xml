@@ -15,12 +15,12 @@
             </intent-filter>
         </activity>
         <meta-data android:name="logCPU" android:value="true" />
-        <meta-data android:name="logDalvik" android:value="false" />
+        <meta-data android:name="logDalvik" android:value="true" />
         <meta-data android:name="logMem" android:value="true" />
-        <meta-data android:name="logNetwork" android:value="false" />
-        <meta-data android:name="ipAddress" android:value="192.168.100.12" />
+        <meta-data android:name="logNetwork" android:value="true" />
+        <meta-data android:name="ipAddress" android:value="192.168.100.17" />
         <meta-data android:name="port" android:value="4984" />
-        <meta-data android:name="dbName" android:value="examiner" />
+        <meta-data android:name="dbName" android:value="examiner_data" />
         <service android:name=".StatCollectorService" />
     </application>
 </manifest>

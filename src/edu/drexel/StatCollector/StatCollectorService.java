@@ -159,11 +159,12 @@ public class StatCollectorService extends Service {
                     }
 
                     startPos = endPos + 1;
-                    handler.postDelayed(persistStats, persistWaitTime);
                 }
-                else if (startPos == 0) {
+
+                if (collectSensors)
                     handler.postDelayed(persistStats, persistWaitTime);
-                }
+                else
+                    Couchbase.stopCB();
             } catch (Exception ex) {
                 Log.e(TAG, ex.getMessage());
             }
@@ -228,6 +229,8 @@ public class StatCollectorService extends Service {
     public void onDestroy() {
         collectSensors = false;
         handler.removeCallbacks(captureStats);
+        handler.removeCallbacks(persistStats);
+        persistStats.run();
         Log.e(TAG, "Stop Service");
         super.onDestroy();
     }

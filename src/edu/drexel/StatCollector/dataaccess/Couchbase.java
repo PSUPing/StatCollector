@@ -90,6 +90,16 @@ public class Couchbase {
         }
     }
 
+    public static void stopCB() {
+        try {
+            if (httpClient != null)
+                httpClient.shutdown();
+        }
+        catch (Exception ex) {
+            Log.e(TAG, ex.getMessage().toString());
+        }
+    }
+
     public static JsonNode makeCBStatObj (StatsToCollect statObj) {
         ObjectNode statNode = JsonNodeFactory.instance.objectNode();
 

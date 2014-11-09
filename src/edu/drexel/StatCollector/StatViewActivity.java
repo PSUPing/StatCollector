@@ -32,9 +32,9 @@ public class StatViewActivity extends Activity {
     private CheckBox chkLogDalvik;
     private CheckBox chkLogNetwork;
 
-    {
+/*    {
         CBLURLStreamHandlerFactory.registerSelfIgnoreError();
-    }
+    }*/
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -106,6 +106,11 @@ public class StatViewActivity extends Activity {
                         svcIntent.putExtra("logDalvik", chkLogDalvik.isChecked());
                         svcIntent.putExtra("logNetwork", chkLogNetwork.isChecked());
                         startService(svcIntent);
+
+                        // Start Couchbase
+                        Couchbase.filesDir = getFilesDir().getAbsolutePath();
+                        Couchbase.baseContext = getBaseContext();
+                        Couchbase.startCB();
                     }
                     else {
                         stopService(svcIntent);
@@ -131,10 +136,5 @@ public class StatViewActivity extends Activity {
                 }
             }
         });
-
-        // Start Couchbase
-        Couchbase.filesDir = getFilesDir().getAbsolutePath();
-        Couchbase.baseContext = getBaseContext();
-        Couchbase.startCB();
     }
 }
